@@ -45,38 +45,33 @@ const Login = () => {
     const handleLogin =async(e) => {
        e.preventDefault();
       
-        // console.log(e.currentTarget);
-        // const form= new FormData(e.currentTarget);
-        // const email =form.get('email');
-        // const password =form.get('password');
-        // console.log(form.get("email"));
-        // const userResponse = await fetch(`https://diagnostic-server-site.vercel.app/user/email?email=${email}`);
-        // const userData = await userResponse.json();
-        // console.log(userData)
-        // if (userData?.length > 0) {
-        //   const user = userData[0];
+        console.log(e.currentTarget);
+        const form= new FormData(e.currentTarget);
+        const email =form.get('email');
+        const password =form.get('password');
+        console.log(form.get("email"));
+        const userResponse = await fetch(`http://localhost:5000/user/email?email=${email}`);
+        const userData = await userResponse.json();
+        console.log(userData)
+        if (userData?.length > 0) {
+          const user = userData[0];
     
-        //   if (user.status === 'active') {
-           
-        //     signIn(email, password)
-        //       .then((result) => {
-        //         console.log(result.user);
-        //         setError("")
-        //         //navigate(location?.state?.from || '/dashboard');
-               
-        //       })
-        //       .catch((error) => {
-        //         setError("Email or password does not match");
+            signIn(email, password)
+              .then((result) => {
+                console.log(result.user);
+                setError("")
+                //navigate(location?.state?.from || '/dashboard');
+               navigate('/')
+              })
+              .catch((error) => {
+                setError("Email or password does not match");
                 
-        //       });
-        //   } else {
-            
-        //     setError('Your account is not active. Please contact the administrator.');
-        //   }
-        // } else {
+              });
+           
+        } else {
         
-        //   setError('User not found. Please check your credentials.');
-        // }
+          setError('User not found. Please check your credentials.');
+        }
        
     };
 

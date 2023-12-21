@@ -12,35 +12,35 @@ const Navbar = () => {
     const location = useLocation();
     const [userData, setUserData] = useState(null);
   
-    // useEffect(() => {
-    //   const fetchUserData = async () => {
-    //     try {
-    //       const email = user?.email;
-    //       const response = await fetch(`https://diagnostic-server-site.vercel.app/user/email?email=${email}`);
-    //       const data = await response.json();
-    //       setUserData(data);
-    //     } catch (error) {
-    //       console.error('Error fetching user data:', error);
-    //     }
-    //   };
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          const email = user?.email;
+          const response = await fetch(`http://localhost:5000/user/email?email=${email}`);
+          const data = await response.json();
+          setUserData(data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
   
-    //   if (user) {
-    //     fetchUserData();
-    //   }
-    // }, [user]);
+      if (user) {
+        fetchUserData();
+      }
+    }, [user]);
     
-    // const handleSignOut =() =>{
-    //       logout()
-    //       .then(result=>{
+    const handleSignOut =() =>{
+          logout()
+          .then(result=>{
             
-    //         console.log("logout")
-    //         Swal.fire('logout successful')
-    //       // toast.success('Logout successful!'); 
-    //        // navigate(location?.state ? location.state : '/');
-    //         navigate('/')
-    //     })
-    //       .catch()
-    // }
+            console.log("logout")
+          //  Swal.fire('logout successful')
+          // toast.success('Logout successful!'); 
+           // navigate(location?.state ? location.state : '/');
+            navigate('/')
+        })
+          .catch()
+    }
 
                 const  links = <>
                 <li className="mx-3 text-base text-red-600 font-medium hidden md:block lg:block" ><NavLink to="/"  >Home</NavLink></li>
@@ -96,7 +96,7 @@ const Navbar = () => {
                                  <img src={userData[0]?.image} />
                                  </div>
                                   </label>
-                                 <a  className="btn  w-16 text-xs ">  SignOut</a></div>
+                                 <a onClick={handleSignOut} className="btn  w-16 text-xs ">  SignOut</a></div>
                      )
                       :(
                                  <Link to={"/login"}><a className="w-20 p-2   rounded-md bg-white">Login</a></Link>  

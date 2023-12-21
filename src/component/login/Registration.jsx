@@ -44,33 +44,34 @@ const Registration = () => {
     const imageUrl = imgbbData.data.url;
   
             signUp(email,password)
-    //         .then(result=>{
-    //             console.log(result.user);
+            .then(result=>{
+                console.log(result.user);
                 
-    //             const createdAt = result.user?.metadata?.creationTime;
-    //             const user = { name,email,password, blood, district, upazila,image:imageUrl,status: "active",createdAt: createdAt};
+                const createdAt = result.user?.metadata?.creationTime;
+                const user = { name,email,password,image:imageUrl,createdAt: createdAt};
                
-    //             fetch('https://diagnostic-server-site.vercel.app/user', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'content-type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify(user)
-    //             })
-    //                 .then(res => res.json())
-    //                 .then(data => {
-    //                     if(data.insertedId){
-    //                       //  toast.success('Register & Database saved successful!'); 
-    //                       Swal.fire('your Are successfully register')
-    //                     }
-    //                     console.log(data)
-    //                 })
+                fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                            console.log("success register")
+                          //  toast.success('Register & Database saved successful!'); 
+                         // Swal.fire('your Are successfully register')
+                        }
+                        console.log(data)
+                    })
 
-    //                 navigate(location?.state?.from || '/dashboard');
-    // //             // navigate('/', { state: { name } });
-    // //             toast.success('Register successful!'); 
-    // //             //console.log(name,email,image,password);
-    //         })
+                    navigate(location?.state?.from || '/');
+    //             // navigate('/', { state: { name } });
+    //             toast.success('Register successful!'); 
+    //             //console.log(name,email,image,password);
+            })
   
       }
     }
