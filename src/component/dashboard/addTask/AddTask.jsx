@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../firebase/AuthProvider";
 //import Swal from "sweetalert2";
 
 const AddTask = () => {
+    const{user}= useContext(AuthContext);
     const location= useLocation();
     const navigate= useNavigate();
-  
+    const email = user?.email;
     const [error,setError] = useState("");
     const [taskDate, setTaskDate] = useState(null);
     //const [priority, setPriority] = useState("");
@@ -21,7 +23,7 @@ const AddTask = () => {
         const description = form.get('description')
         const priority = selectPriority.value;
         const taskDate = form.get('taskDate');
-            const task = { name,description,taskDate,priority,status:"to-do"};
+            const task = { name,description,taskDate,priority,email,status:"to-do"};
             console.log(task)
             fetch('http://localhost:5000/dashboard/addTask', {
                 method: 'POST',
@@ -40,7 +42,7 @@ const AddTask = () => {
                         //     confirmButtonText: 'Ok',
                         // });
                       
-                      //navigate(location?.state?.from || '/dashboard/manageTest');
+                      navigate(location?.state?.from || '/dashboard/manageTask');
                     }
                     console.log(data)
                 })

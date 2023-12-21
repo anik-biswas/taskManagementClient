@@ -14,6 +14,7 @@ import Registration from './component/login/Registration'
 import Dashboard from './component/dashboard/DashBoard'
 import Cart from './component/dashboard/Cart'
 import AddTask from './component/dashboard/addTask/Addtask'
+import ManageTask from './component/dashboard/manageTask/ManageTask'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         path: "/dashboard/addTask",
         element: <AddTask></AddTask>,
       },
+      {
+        path : "/dashboard/manageTask",
+        element : <ManageTask></ManageTask>
+      }
     ]
   }
 
