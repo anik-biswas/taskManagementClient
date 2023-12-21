@@ -13,34 +13,34 @@ const Login = () => {
     const [error,setError] = useState("");
    
     const handleGoogle = () => {
-        // googleSignIn().then((result) =>{
-        //     const createdAt = result.user?.metadata?.creationTime;
-        //     const userInfo = {
-        //         email: result.user?.email,
-        //         name: result.user?.displayName,
-        //         image: result.user?.photoURL,
-        //         createdAt: createdAt
-        //     }
-        //     fetch('https://diagnostic-server-site.vercel.app/user', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'content-type': 'application/json'
-        //             },
-        //             body: JSON.stringify(userInfo)
-        //         })
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 if(data.insertedId){
-        //                   //  toast.success('Register & Database saved successful!'); 
-        //                 }
-        //                 console.log(data)
-        //             })
+        googleSignIn().then((result) =>{
+            const createdAt = result.user?.metadata?.creationTime;
+            const userInfo = {
+                email: result.user?.email,
+                name: result.user?.displayName,
+                image: result.user?.photoURL,
+                createdAt: createdAt
+            }
+            fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                          //  toast.success('Register & Database saved successful!'); 
+                        }
+                        console.log(data)
+                    })
             
-        //     console.log(result.user);
+            console.log(result.user);
         
-        //     navigate(location?.state?.from || '/dashboard');
+            navigate(location?.state?.from || '/');
 
-        // });
+        });
     };
     const handleLogin =async(e) => {
        e.preventDefault();
