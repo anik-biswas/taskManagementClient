@@ -13,6 +13,7 @@ import Login from './component/login/Login'
 import Registration from './component/login/Registration'
 import Dashboard from './component/dashboard/DashBoard'
 import Cart from './component/dashboard/Cart'
+import AddTask from './component/dashboard/addTask/Addtask'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -52,7 +53,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Cart></Cart>,
       },
-      
+      {
+        path: "/dashboard/addTask",
+        element: <AddTask></AddTask>,
+      },
     ]
   }
 

@@ -67,35 +67,18 @@ const ResponsiveTabs = ({ children }) => {
              </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/addTest" activeClassName="active">
+              <NavLink to="/dashboard/addTask" activeClassName="active">
                 <FaFileMedical />
-                Add a Test
+                Add a Task
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/manageTest" activeClassName="active">
+              <NavLink to="/dashboard/manageTask" activeClassName="active">
                 <FaDatabase></FaDatabase>
-                Manage Test
+                Manage Task
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/dashboard/addBanner" activeClassName="active">
-                <FaBandAid />
-                Add Banner
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/manageBanner" activeClassName="active">
-                <FaDatabase></FaDatabase>
-                Manage Banner
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/appointment" activeClassName="active">
-                <FaReadme />
-                Appointment
-              </NavLink>
-            </li>
+           
             <li>
               <NavLink to="/dashboard/allUser" activeClassName="active">
                 <FaIdCard />
@@ -129,35 +112,18 @@ const ResponsiveTabs = ({ children }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/addTest" activeClassName="active">
+                <NavLink to="/dashboard/addTask" activeClassName="active">
                   <FaFileMedical />
-                  Add a Test
+                  Add a Task
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manageTest" activeClassName="active">
+                <NavLink to="/dashboard/manageTask" activeClassName="active">
                   <FaDatabase></FaDatabase>
-                  Manage Test
+                  Manage Task
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/addBanner" activeClassName="active">
-                  <FaBandAid />
-                  Add Banner
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/manageBanner" activeClassName="active">
-                  <FaDatabase></FaDatabase>
-                  Manage Banner
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/appointment" activeClassName="active">
-                  <FaReadme />
-                  Appointment
-                </NavLink>
-              </li>
+              
               <li>
                 <NavLink to="/dashboard/allUser" activeClassName="active">
                   <FaIdCard />
