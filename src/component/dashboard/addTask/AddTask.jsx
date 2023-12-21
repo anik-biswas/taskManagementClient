@@ -9,53 +9,42 @@ const AddTask = () => {
     const navigate= useNavigate();
   
     const [error,setError] = useState("");
-    const [testDate, setTestDate] = useState(null);
-    const [priority, setPriority] = useState("");
-    // const handleTask=async(e)=>{
-    //     e.preventDefault();
+    const [taskDate, setTaskDate] = useState(null);
+    //const [priority, setPriority] = useState("");
+    const priority = ['Low', 'Moderate' , 'High'];
+    const handleTask=async(e)=>{
+        e.preventDefault();
     
-    //     const form = new FormData(e.currentTarget);
-    //     const name = form.get('name');
-    //     const description = form.get('description');
-        
-    //     const price = form.get('price');
-    //     const slot = form.get('slot');
-    //     const testDate = form.get('testDate');
-    //     const imageFile = form.get('testImg');
-    //     const imgbbFormData = new FormData();
-    //      imgbbFormData.append('image', imageFile);
-        
-    //         const imgbbRes = await fetch(image_hosting_api, {
-    //         method: 'POST',
-    //         body: imgbbFormData,
-    //         });
-        
-    //         const imgbbData = await imgbbRes.json();
-    //         const imageUrl = imgbbData.data.url;
-    //         const test = { name,description,testDate,price,slot,testImg:imageUrl};
-    //         console.log(test)
-    //         fetch('https://diagnostic-server-site.vercel.app/dashboard/addTest', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'content-type': 'application/json'
-    //             },
-    //             body: JSON.stringify(test)
-    //         })
-    //         .then(res => res.json())
-    //             .then(data => {
-    //                 if(data.insertedId){
-    //                     Swal.fire({
-    //                         title: 'Success!',
-    //                         text: 'Test added Successfully',
-    //                         icon: 'success',
-    //                         confirmButtonText: 'Ok',
-    //                     });
-    //                   //  toast.success('Register & Database saved successful!'); 
-    //                   navigate(location?.state?.from || '/dashboard/manageTest');
-    //                 }
-    //                 console.log(data)
-    //             })
-    // }
+        const form = new FormData(e.currentTarget);
+        const selectPriority = document.getElementById("selectPriority");
+        const name = form.get('name');
+        const description = form.get('description')
+        const priority = selectPriority.value;
+        const taskDate = form.get('taskDate');
+            const task = { name,description,taskDate,priority,status:"to-do"};
+            console.log(task)
+            fetch('http://localhost:5000/dashboard/addTask', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(task)
+            })
+            .then(res => res.json())
+                .then(data => {
+                    if(data.insertedId){
+                        // Swal.fire({
+                        //     title: 'Success!',
+                        //     text: 'Task added Successfully',
+                        //     icon: 'success',
+                        //     confirmButtonText: 'Ok',
+                        // });
+                      
+                      //navigate(location?.state?.from || '/dashboard/manageTest');
+                    }
+                    console.log(data)
+                })
+    }
     return (
         <div>
         <div className="bg-[#CBE4E9] p-4 md:p-4 lg:p-24">
@@ -65,7 +54,7 @@ const AddTask = () => {
             </h2>
             
           </div>
-          <form  >
+          <form  onSubmit={handleTask}>
          
             <div className="md:flex  mb-4 lg:mb-8">
               <div className="form-control md:w-full lg:w-1/2">
@@ -104,23 +93,20 @@ const AddTask = () => {
                 </label>
                 <label className="input-group">
                 <select
-                        id="priority"
-                        name="priority"
-                        value={priority}
-                        className="w-full h-11 rounded-md"
-                    >
-                        <option value="">Select Priority</option>
-                        <option value="Low">Low</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="High">High</option>
-                    </select>
-
-                    {priority && (
-                        <p>
-                        Selected Priority: <strong>{priority}</strong>
-                        </p>
-                    )}
-                </label>
+                  className="select input input-bordered w-full"
+                  id="selectPriority"
+                  required
+                >
+                     <option value="" disabled selected>
+                        Select priority
+                      </option>
+                  {priority.map((priority, index) => (
+                    <option key={index} value={priority}>
+                      {priority}
+                    </option>
+                  ))}
+                </select>
+              </label>
                 
               </div>
               <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
@@ -129,10 +115,10 @@ const AddTask = () => {
                 </label>
                 <label className="input-group">
                 <DatePicker
-                selected={testDate} 
-                onChange={(date) => setTestDate(date)} 
+                selected={taskDate} 
+                onChange={(date) => setTaskDate(date)} 
                 placeholderText="Select a date"
-                name="testDate"
+                name="taskDate"
                 className="input input-bordered w-full"
                 required
                 />
