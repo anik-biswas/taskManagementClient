@@ -38,7 +38,7 @@ const Login = () => {
             
             console.log(result.user);
         
-            navigate(location?.state?.from || '/');
+            navigate(location?.state?.from || '/dashboard');
 
         });
     };
@@ -60,8 +60,8 @@ const Login = () => {
               .then((result) => {
                 console.log(result.user);
                 setError("")
-                //navigate(location?.state?.from || '/dashboard');
-               navigate('/')
+                navigate(location?.state?.from || '/dashboard');
+               //navigate('/')
               })
               .catch((error) => {
                 setError("Email or password does not match");

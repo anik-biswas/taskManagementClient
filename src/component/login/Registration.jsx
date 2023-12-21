@@ -12,75 +12,74 @@ const Registration = () => {
   
     const [error,setError] = useState("");
    
-   const handleRegister =async(e)=>{
-    e.preventDefault();
-
-    const form = new FormData(e.currentTarget);
+    const handleRegister =async(e)=>{
+        e.preventDefault();
     
-    const name = form.get('name');
-    const email = form.get('email');
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-    const imageFile = form.get('image');
-
-    if(password===confirmPassword)
-    {
-      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) {
-         setError("Minimum 6 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+        const form = new FormData(e.currentTarget);
         
-     }
-     else {
-        setError("");
-   
-    const imgbbFormData = new FormData();
-    imgbbFormData.append('image', imageFile);
-  
-    const imgbbRes = await fetch(image_hosting_api, {
-      method: 'POST',
-      body: imgbbFormData,
-    });
-  
-    const imgbbData = await imgbbRes.json();
-    const imageUrl = imgbbData.data.url;
-  
-            signUp(email,password)
-            .then(result=>{
-                console.log(result.user);
-                
-                const createdAt = result.user?.metadata?.creationTime;
-                const user = { name,email,password,image:imageUrl,createdAt: createdAt};
-               
-                fetch('http://localhost:5000/user', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if(data.insertedId){
-                            console.log("success register")
-                          //  toast.success('Register & Database saved successful!'); 
-                         // Swal.fire('your Are successfully register')
-                        }
-                        console.log(data)
+        const name = form.get('name');
+        const email = form.get('email');
+        
+        const password = form.get('password');
+        const confirmPassword = form.get('confirmPassword');
+        const imageFile = form.get('image');
+    
+        if(password===confirmPassword)
+        {
+          if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) {
+             setError("Minimum 6 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+            
+         }
+         else {
+            setError("");
+       
+        const imgbbFormData = new FormData();
+        imgbbFormData.append('image', imageFile);
+      
+        const imgbbRes = await fetch(image_hosting_api, {
+          method: 'POST',
+          body: imgbbFormData,
+        });
+      
+        const imgbbData = await imgbbRes.json();
+        const imageUrl = imgbbData.data.url;
+      
+                signUp(email,password)
+                .then(result=>{
+                    console.log(result.user);
+                    
+                    const createdAt = result.user?.metadata?.creationTime;
+                    const user = { name,email,password, image:imageUrl,createdAt: createdAt};
+                   
+                    fetch('http://localhost:5000/user', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
                     })
-
-                    navigate(location?.state?.from || '/');
-    //             // navigate('/', { state: { name } });
-    //             toast.success('Register successful!'); 
-    //             //console.log(name,email,image,password);
-            })
-  
-      }
+                        .then(res => res.json())
+                        .then(data => {
+                            if(data.insertedId){
+                             console.log("register")
+                             navigate(location?.state?.from || '/dashboard');
+                            //   Swal.fire('your Are successfully register')
+                            }
+                            console.log(data)
+                        })
+    
+                       // navigate(location?.state?.from || '/');
+       
+                })
+        
+          }
+        }
+        else
+        {
+            setError("password does not match")
+        }
+    
     }
-    else
-    {
-        setError("password does not match")
-    }
-
-}
     return (
         <div>
             <div className="hero min-h-screen bg-[#e3f9f6]">
