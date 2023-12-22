@@ -219,16 +219,15 @@ const AllTask = () => {
                 </label>
                 <label className="input-group">
                 <DatePicker
-                selected={taskDate || (selectedTask && new Date(selectedTask.taskDate))}
-                onChange={(date) => {
-                    console.log(date);
-                    setTaskDate(date);
-                }}
-                
-                name="taskDate"
-                className="input input-bordered w-full"
-                required
-                />
+                    selected={taskDate || (selectedTask && new Date(selectedTask.taskDate))}
+                    onChange={(date) => {
+                        console.log(date);
+                        setTaskDate(date);
+                    }}
+                    name="taskDate"
+                    className="input input-bordered w-full"
+                    required
+                    />
                 </label>
               </div>
             </div>

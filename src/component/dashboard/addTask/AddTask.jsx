@@ -1,140 +1,166 @@
-import { useContext, useState } from "react";
-import DatePicker from 'react-datepicker';
+import React, { useContext, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../firebase/AuthProvider";
 import Swal from "sweetalert2";
-//import Swal from "sweetalert2";
 
 const AddTask = () => {
-    const{user}= useContext(AuthContext);
-    const location= useLocation();
-    const navigate= useNavigate();
-    const email = user?.email;
-    const [error,setError] = useState("");
-    const [taskDate, setTaskDate] = useState(null);
-    //const [priority, setPriority] = useState("");
-    const priority = ['Low', 'Moderate' , 'High'];
-    const handleTask=async(e)=>{
-        e.preventDefault();
-    
-        const form = new FormData(e.currentTarget);
-        const selectPriority = document.getElementById("selectPriority");
-        const name = form.get('name');
-        const description = form.get('description')
-        const priority = selectPriority.value;
-        const taskDate = form.get('taskDate');
-            const task = { name,description,taskDate,priority,email,status:"to-do"};
-            console.log(task)
-            fetch('https://taskmanagement-server-eta.vercel.app/dashboard/addTask', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(task)
-            })
-            .then(res => res.json())
-                .then(data => {
-                    if(data.insertedId){
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Task added Successfully',
-                            icon: 'success',
-                            confirmButtonText: 'Ok',
-                        });
-                      
-                      navigate(location?.state?.from || '/dashboard/manageTask');
-                    }
-                    console.log(data)
-                })
+  const { user } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const email = user?.email;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+  } = useForm();
+
+  const [taskDate, setTaskDate] = useState(null);
+
+  const handleTask = async (data) => {
+    try {
+        const formattedDate = data.taskDate.toLocaleDateString('en-US');
+     const task = { ...data, email, status: "to-do", taskDate: formattedDate };
+      console.log(task)
+      
+      const response = await fetch(
+        "https://taskmanagement-server-eta.vercel.app/dashboard/addTask",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(task),
+        }
+      );
+
+      const responseData = await response.json();
+
+      if (responseData.insertedId) {
+        Swal.fire({
+          title: "Success!",
+          text: "Task added Successfully",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+
+        reset(); 
+        navigate(location?.state?.from || "/dashboard/manageTask");
+      } else {
+        
+        console.error("Error adding task:", responseData.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-    return (
-        <div>
-        <div className="bg-[#CBE4E9] p-4 md:p-4 lg:p-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-            <h2 className="text-2xl md:text-3xl lg:text-3xl font-extrabold">
-              Add Task
-            </h2>
-            
-          </div>
-          <form  onSubmit={handleTask}>
-         
-            <div className="md:flex  mb-4 lg:mb-8">
-              <div className="form-control md:w-full lg:w-1/2">
-                <label className="label">
-                  <span className="label-text">Task Title</span>
-                </label>
-                <label className="input-group">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Task Title"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </label>
-              </div>
-              <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
-                <label className="label">
-                  <span className="label-text">description</span>
-                </label>
-                <label className="input-group">
+  };
+
+  return (
+    <div>
+      <div className="bg-[#CBE4E9] p-4 md:p-4 lg:p-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-extrabold">
+            Add Task
+          </h2>
+        </div>
+        <form onSubmit={handleSubmit(handleTask)}>
+          <div className="md:flex  mb-4 lg:mb-8">
+            <div className="form-control md:w-full lg:w-1/2">
+              <label className="label">
+                <span className="label-text">Task Title</span>
+              </label>
+              <label className="input-group">
                 <input
-                    type="text"
-                    name="description"
-                    placeholder="description"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </label>
-              </div>
+                  type="text"
+                  name="name"
+                  placeholder="Task Title"
+                  className="input input-bordered w-full"
+                  {...register("name", { required: "Task title is required" })}
+                />
+              </label>
+              {errors.name && (
+                <span className="text-red-500">{errors.name.message}</span>
+              )}
             </div>
-            <div className="md:flex mb-4 lg:mb-8">
-              <div className="form-control md:w-full lg:w-1/2">
-                <label className="label">
-                  <span className="label-text">Priority</span>
-                </label>
-                <label className="input-group">
+            <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
+              <label className="label">
+                <span className="label-text">Description</span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  className="input input-bordered w-full"
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
+                />
+              </label>
+              {errors.description && (
+                <span className="text-red-500">{errors.description.message}</span>
+              )}
+            </div>
+          </div>
+
+          <div className="md:flex mb-4 lg:mb-8">
+            <div className="form-control md:w-full lg:w-1/2">
+              <label className="label">
+                <span className="label-text">Priority</span>
+              </label>
+              <label className="input-group">
                 <select
                   className="select input input-bordered w-full"
                   id="selectPriority"
-                  required
+                  {...register("priority", { required: "Priority is required" })}
                 >
-                     <option value="" disabled selected>
-                        Select priority
-                      </option>
-                  {priority.map((priority, index) => (
-                    <option key={index} value={priority}>
-                      {priority}
-                    </option>
-                  ))}
+                  <option value="" defaultValue="" disabled>
+                    Select priority
+                  </option>
+                  <option value="Low">Low</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
                 </select>
               </label>
-                
-              </div>
-              <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
-                <label className="label">
-                  <span className="label-text">Date</span>
-                </label>
-                <label className="input-group">
-                <DatePicker
-                selected={taskDate} 
-                onChange={(date) => setTaskDate(date)} 
-                placeholderText="Select a date"
-                name="taskDate"
-                className="input input-bordered w-full"
-                required
-                />
-                </label>
-              </div>
+              {errors.priority && (
+                <span className="text-red-500">{errors.priority.message}</span>
+              )}
             </div>
-            
-            <input type="submit" value="Add Task" className="btn btn-block" />
-            {/* <button onSubmit={handleBanner} className="btn btn-block" >Add Banner</button> */}
-          </form>
-        </div>
+            <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
+              <label className="label">
+                <span className="label-text">Date</span>
+              </label>
+              <label className="input-group">
+              <Controller
+            control={control}
+            name="taskDate"
+            render={({ field }) => (
+                <DatePicker
+                {...field}
+                selected={field.value || null}
+                onChange={(date) => field.onChange(date)}
+                placeholderText="Select a date"
+                className="input input-bordered w-full"
+                />
+            )}
+            />
+              </label>
+              {errors.taskDate && (
+                <span className="text-red-500">{errors.taskDate.message}</span>
+              )}
+            </div>
+          </div>
+
+          <input type="submit" value="Add Task" className="btn btn-block" />
+        </form>
       </div>
-    );
+    </div>
+  );
 };
 
 export default AddTask;
