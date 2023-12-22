@@ -80,9 +80,9 @@ const ResponsiveTabs = ({ children }) => {
             </li>
            
             <li>
-              <NavLink to="/dashboard/allUser" activeClassName="active">
+              <NavLink to="/dashboard/allTask" activeClassName="active">
                 <FaIdCard />
-                All User
+                All Task
               </NavLink>
             </li>
           </>
@@ -94,12 +94,7 @@ const ResponsiveTabs = ({ children }) => {
             Home
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/dashboard/profile" activeClassName="active">
-            <FaIcons></FaIcons>
-            Profile
-          </NavLink>
-        </li>
+        
       </ResponsiveTabs>
       <div className="w-64 hidden md:block min-h-screen bg-[#e9edc9]">
         <ul className="menu p-4">
@@ -139,12 +134,7 @@ const ResponsiveTabs = ({ children }) => {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/profile" activeClassName="active">
-              <FaIcons></FaIcons>
-              Profile
-            </NavLink>
-          </li>
+          
         </ul>
       </div>
       <div className="flex-1 p-8">

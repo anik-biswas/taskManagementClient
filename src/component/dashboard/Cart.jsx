@@ -23,7 +23,14 @@ const Cart = () => {
     return (
         <div>
             {user && userData && userData?.length > 0 ? (
-                                <p>Hi {userData[0].name} , welcome to your dashboard </p>
+                <div className='flex justify-items-center '>
+                    <div className="w-20  rounded-full">
+                                <img src={userData[0]?.image} />
+                                </div>
+                                <p>Hi <span className='text-2xl font-bold'>{userData[0].name} </span>, welcome to your dashboard </p>
+                               
+                </div>
+                                
                      )
                       :(
                         <p>Hi , welcome to your dashboard </p>
