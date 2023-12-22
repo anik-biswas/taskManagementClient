@@ -20,6 +20,7 @@ import AllTasks from './component/allTask/AllTasks'
 import Contact from './component/contact/Contact'
 import About from './component/about/About'
 import PreviousTask from './component/dashboard/previousTask/PreviousTask'
+import ErrorPage from './component/errorPage/ErrorPage'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   {
     path: "/",
    element: <Root></Root>,
-    //errorElement : <ErrorPage></ErrorPage> ,
+    errorElement : <ErrorPage></ErrorPage> ,
     children : [
       {
         path: "/",
