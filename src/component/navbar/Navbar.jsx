@@ -46,7 +46,7 @@ const Navbar = () => {
                 <li className="mx-3 text-base text-red-600 font-medium hidden md:block lg:block" ><NavLink to="/"  >Home</NavLink></li>
                 <li className="mr-3  text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/allTask">All Tests</NavLink></li>
                  
-                <li className=" mr-3 text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/blog">Blogs</NavLink></li>
+                <li className=" mr-3 text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/contact">Contact</NavLink></li>
                 <li className=" text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/about">About</NavLink></li>
                 <li className=" text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/dashboard">Dashboard</NavLink></li>
                 
