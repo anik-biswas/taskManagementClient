@@ -34,8 +34,6 @@ const AllTask = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const displayedTasks = userTasks.slice(indexOfFirstItem, indexOfLastItem);
 
-    const pageCount = Math.ceil(userTasks.length / itemsPerPage);
-
     //setTests(displayedTests)
       const openModal = (user) => {
         console.log(user)
