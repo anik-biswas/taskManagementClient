@@ -4,7 +4,7 @@ const Contact = () => {
     return (
         <div  className='w-full  py-10'>
         
-        <div className="w-full md:w-96 md:max-w-full mx-auto bg-slate-950  bg-transparent rounded-lg">
+        <div className="w-full md:w-96 md:max-w-full mx-auto bg-slate-900  rounded-lg">
           <div className="p-6 my-10 border border-gray-300 sm:rounded-md">
             <form action="https://formspree.io/f/mrgwnjqe" method="POST"  >
               <label className="block mb-6">
