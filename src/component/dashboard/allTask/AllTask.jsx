@@ -50,6 +50,7 @@ const AllTask = () => {
       };
 
       const handleDelete = id => {
+        console.log(id)
         Swal.fire({
             title: 'Are you sure?',
             text: "Delete Test won't be able to revert this!",
@@ -62,7 +63,7 @@ const AllTask = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`https://diagnostic-server-site.vercel.app/dashboard/test/${id}`, {
+                fetch(`http://localhost:5000/dashboard/task/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -229,6 +230,7 @@ const AllTask = () => {
                                 <th className="text-red-400">Title</th>
                                 <th className="text-red-400">Description </th>
                                 <th className="text-red-400">Priority</th>
+                                <th className="text-red-400">Date</th>
                                 <th className="text-red-400">Status</th>
                                 <th className="text-red-400">update</th>
                                 <th className="text-red-400">Delete</th>
@@ -246,6 +248,7 @@ const AllTask = () => {
                                         : task.description}
                                     </td>
                                     <td>{task.priority}</td>
+                                    <td>{task.taskDate}</td>
                                     <td>{task.status}</td>
                                     <td><button onClick={() => openModal(task)} >Edit</button></td>
                                     <td>
