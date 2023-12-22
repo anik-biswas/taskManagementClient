@@ -125,9 +125,9 @@ const ResponsiveTabs = ({ children }) => {
               </li>
               
               <li>
-                <NavLink to="/dashboard/allUser" activeClassName="active">
+                <NavLink to="/dashboard/allTask" activeClassName="active">
                   <FaIdCard />
-                  All User
+                  All Task
                 </NavLink>
               </li>
             </>
