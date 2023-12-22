@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../firebase/AuthProvider";
+import Swal from "sweetalert2";
 //import Swal from "sweetalert2";
 
 const AddTask = () => {
@@ -25,7 +26,7 @@ const AddTask = () => {
         const taskDate = form.get('taskDate');
             const task = { name,description,taskDate,priority,email,status:"to-do"};
             console.log(task)
-            fetch('http://localhost:5000/dashboard/addTask', {
+            fetch('https://taskmanagement-server-eta.vercel.app/dashboard/addTask', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -35,12 +36,12 @@ const AddTask = () => {
             .then(res => res.json())
                 .then(data => {
                     if(data.insertedId){
-                        // Swal.fire({
-                        //     title: 'Success!',
-                        //     text: 'Task added Successfully',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'Ok',
-                        // });
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Task added Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'Ok',
+                        });
                       
                       navigate(location?.state?.from || '/dashboard/manageTask');
                     }

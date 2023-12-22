@@ -8,7 +8,7 @@ const ManageTask = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/task')
+    fetch('https://taskmanagement-server-eta.vercel.app/task')
       .then(res => res.json())
       .then(data => {
         setTasks(data);
@@ -18,23 +18,21 @@ const ManageTask = () => {
   const userTasks = tasks.filter(task => task.email === email);
 
   const handleDragEnd = async (result) => {
-    if (!result.destination) return; // Dropped outside of the list
+    if (!result.destination) return; 
 
     const movedTask = userTasks[result.source.index];
     const updatedStatus = result.destination.droppableId;
 
-    // Optimistic UI update
     const updatedTasks = [...userTasks];
     movedTask.status = updatedStatus;
     setTasks(updatedTasks);
 
-    // Update the backend with the new task status
     await updateTaskStatus(movedTask._id, updatedStatus);
   };
 
   const updateTaskStatus = async (taskId, updatedStatus) => {
     // try {
-    //   const response = await fetch(`http://localhost:5000/updateTaskStatus/${taskId}`, {
+    //   const response = await fetch(`https://taskmanagement-server-eta.vercel.app/updateTaskStatus/${taskId}`, {
     //     method: 'PATCH',
     //     headers: {
     //       'Content-Type': 'application/json',

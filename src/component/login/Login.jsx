@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
  import { AuthContext } from "../../firebase/AuthProvider";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
- //import 'react-toastify/dist/ReactToastify.css'; 
+ import 'react-toastify/dist/ReactToastify.css'; 
 
 const Login = () => {
 
@@ -21,7 +21,7 @@ const Login = () => {
                 image: result.user?.photoURL,
                 createdAt: createdAt
             }
-            fetch('http://localhost:5000/user', {
+            fetch('https://taskmanagement-server-eta.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -31,7 +31,7 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         if(data.insertedId){
-                          //  toast.success('Register & Database saved successful!'); 
+                          toast.success('Register & Database saved successful!'); 
                         }
                         console.log(data)
                     })
@@ -50,7 +50,7 @@ const Login = () => {
         const email =form.get('email');
         const password =form.get('password');
         console.log(form.get("email"));
-        const userResponse = await fetch(`http://localhost:5000/user/email?email=${email}`);
+        const userResponse = await fetch(`https://taskmanagement-server-eta.vercel.app/user/email?email=${email}`);
         const userData = await userResponse.json();
         console.log(userData)
         if (userData?.length > 0) {
@@ -60,6 +60,7 @@ const Login = () => {
               .then((result) => {
                 console.log(result.user);
                 setError("")
+                toast.success("Login successfully")
                 navigate(location?.state?.from || '/dashboard');
                //navigate('/')
               })
@@ -85,7 +86,7 @@ const Login = () => {
                     </div>
                     <div className="card flex-shrink-0 w-60 md:w-full bg-[#e9edc9] max-w-sm shadow-2xl ">
                         <form  onSubmit={handleLogin}  className="card-body">
-                            <p>{error}</p>
+                            <p className="text-red-500">{error}</p>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>

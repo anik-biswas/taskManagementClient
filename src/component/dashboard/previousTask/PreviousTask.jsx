@@ -17,7 +17,7 @@ const PreviousTask = () => {
     const [selectedTask, setSelectedTask] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(() => {
-        fetch('http://localhost:5000/task')
+        fetch('https://taskmanagement-server-eta.vercel.app/task')
           .then(res => res.json())
           .then(data => {
             setTasks(data);
@@ -61,7 +61,7 @@ const PreviousTask = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/dashboard/task/${id}`, {
+                fetch(`https://taskmanagement-server-eta.vercel.app/dashboard/task/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

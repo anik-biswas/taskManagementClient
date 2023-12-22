@@ -51,7 +51,7 @@ const Registration = () => {
                     const createdAt = result.user?.metadata?.creationTime;
                     const user = { name,email,password, image:imageUrl,createdAt: createdAt};
                    
-                    fetch('http://localhost:5000/user', {
+                    fetch('https://taskmanagement-server-eta.vercel.app/user', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'

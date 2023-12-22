@@ -18,7 +18,7 @@ const AllTask = () => {
     const [selectedTask, setSelectedTask] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(() => {
-        fetch('http://localhost:5000/task')
+        fetch('https://taskmanagement-server-eta.vercel.app/task')
           .then(res => res.json())
           .then(data => {
             setTasks(data);
@@ -62,7 +62,7 @@ const AllTask = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/dashboard/task/${id}`, {
+                fetch(`https://taskmanagement-server-eta.vercel.app/dashboard/task/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -71,11 +71,11 @@ const AllTask = () => {
                         if (data.deletedCount > 0) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your Coffee has been deleted.',
+                                'Your task has been deleted.',
                                 'success'
                             )
-                            const remainingTests = userTasks.filter(test=> test._id !== id);
-                            setTasks(remainingTests);
+                            const remainingTask = userTasks.filter(task=> task._id !== id);
+                            setTasks(remainingTask);
                     
                         }
                     })
@@ -99,7 +99,7 @@ const AllTask = () => {
             
              const updateTask = { name, description, taskDate, priority, status };
              console.log (updateTask)
-            const response = await fetch(`http://localhost:5000/dashboard/task/${selectedTask._id}`, {
+            const response = await fetch(`https://taskmanagement-server-eta.vercel.app/dashboard/task/${selectedTask._id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -116,14 +116,14 @@ const AllTask = () => {
             if (data.success) {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Test Updated Successfully',
+                    text: 'Task Updated Successfully',
                     icon: 'success',
                     confirmButtonText: 'Ok',
                 });
                 closeModal()
                 // navigate(location?.state?.from || '/dashboard/manageTest');
                 // window.location.reload();
-                const updatedTest= await fetch(`http://localhost:5000/task`);
+                const updatedTest= await fetch(`https://taskmanagement-server-eta.vercel.app/task`);
                 const updatedTestData = await updatedTest.json();
 
             setTasks(updatedTestData);
@@ -133,7 +133,7 @@ const AllTask = () => {
             }
         } catch (error) {
             console.error('Error updating test:', error);
-        //     // Handle the error (show a message to the user, etc.)
+        
          }
     };
 

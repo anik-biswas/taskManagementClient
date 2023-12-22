@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../firebase/AuthProvider";
 //import Swal from "sweetalert2";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 // import ToggleTheme from "../../ToogleTheame";
 
 const Navbar = () => {
@@ -16,7 +16,7 @@ const Navbar = () => {
       const fetchUserData = async () => {
         try {
           const email = user?.email;
-          const response = await fetch(`http://localhost:5000/user/email?email=${email}`);
+          const response = await fetch(`https://taskmanagement-server-eta.vercel.app/user/email?email=${email}`);
           const data = await response.json();
           setUserData(data);
         } catch (error) {
@@ -35,7 +35,7 @@ const Navbar = () => {
             
             console.log("logout")
           //  Swal.fire('logout successful')
-          // toast.success('Logout successful!'); 
+          toast.success('Logout successful!'); 
            // navigate(location?.state ? location.state : '/');
             navigate('/')
         })
@@ -55,7 +55,7 @@ const Navbar = () => {
          const  linksTab = <>
                 <li className="mr-5 " ><NavLink to="/"  >Home</NavLink></li>
                  <li className="mr-5 "><NavLink to="/allTask">All Test</NavLink></li>
-                 <li className="mr-5 "><NavLink to="/blog">Blogs</NavLink></li>
+                 <li className="mr-5 "><NavLink to="/contact">Contact</NavLink></li>
                  <li className="mr-5 "><NavLink to="/about">About</NavLink></li>
                  <li className="mr-5 "><NavLink to="/dashboard">Dashboard</NavLink></li>
                 
@@ -63,7 +63,7 @@ const Navbar = () => {
           
     return (
         <div>
-            <div className="navbar bg-[#e9edc9] rounded-lg p-0 md:p-2">
+            <div className="navbar bg-[#b3edce] rounded-lg p-0 md:p-2">
                 <div className="navbar-start">
                     <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">

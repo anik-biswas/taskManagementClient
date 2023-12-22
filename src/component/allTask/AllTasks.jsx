@@ -7,7 +7,7 @@ const AllTasks = () => {
     const navigate = useNavigate();
     const [tasks,setTasks]= useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/task')
+        fetch('https://taskmanagement-server-eta.vercel.app/task')
           .then(res => res.json())
           .then(data => {
             setTasks(data);

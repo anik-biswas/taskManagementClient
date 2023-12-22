@@ -42,7 +42,7 @@ const ResponsiveTabs = ({ children }) => {
       const fetchUserData = async () => {
         try {
           const email = user?.email;
-          const response = await fetch(`http://localhost:5000/user/email?email=${email}`);
+          const response = await fetch(`https://taskmanagement-server-eta.vercel.app/user/email?email=${email}`);
           const data = await response.json();
           setUserData(data);
         } catch (error) {
@@ -103,7 +103,7 @@ const ResponsiveTabs = ({ children }) => {
         </li>
         
       </ResponsiveTabs>
-      <div className="w-64 hidden md:block min-h-screen bg-[#e9edc9]">
+      <div className="w-64 hidden md:block min-h-screen bg-[#b3edce]">
         <ul className="menu p-4">
         
             <>
