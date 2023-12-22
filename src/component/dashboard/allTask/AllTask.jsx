@@ -28,7 +28,8 @@ const AllTask = () => {
       const userTasks = tasks.filter(task => task.email === email);
       const [taskDate, setTaskDate] = useState(null);
       const [currentPage, setCurrentPage] = useState(0);
-
+      const priority = ['Low', 'Moderate' , 'High'];
+      const status = ['to-do', 'ongoing', 'completed'];
     const indexOfLastItem = (currentPage + 1) * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const displayedTasks = userTasks.slice(indexOfFirstItem, indexOfLastItem);
@@ -92,31 +93,10 @@ const AllTask = () => {
         //     const form = new FormData(e.currentTarget);
         //     const name = form.get('name');
         //     const description = form.get('description');
-        //     const price = form.get('price');
-        //     const slot = form.get('slot');
-        //     const testDate = form.get('testDate');
-        //     const imageFile = form.get('testImg');
+        //     const priority = form.get('priority');
+        //     const taskDate = form.get('taskDate');
     
-        //     let imageUrl = selectedTest?.testImg; 
-    
-        //     if (imageFile && imageFile.size > 0) {
-        //         const imgbbFormData = new FormData();
-        //         imgbbFormData.append('image', imageFile);
-                
-        //         const imgbbRes = await fetch(image_hosting_api, {
-        //             method: 'POST',
-        //             body: imgbbFormData,
-        //         });
-    
-        //         if (!imgbbRes.ok) {
-        //             throw new Error('Image upload failed');
-        //         }
-    
-        //         const imgbbData = await imgbbRes.json();
-        //         imageUrl = imgbbData.data.url;
-        //     }
-    
-        //     const updateTest = { name, description, testDate, price, slot, testImg: imageUrl };
+        //     const updateTask = { name, description, taskDate, priority, status };
     
         //     const response = await fetch(`https://diagnostic-server-site.vercel.app/dashboard/test/${selectedTest._id}`, {
         //         method: 'PUT',
@@ -179,21 +159,99 @@ const AllTask = () => {
           </div>
            <form onSubmit={handleUpdateTest} >
          
-            <div className="md:flex  mb-4 lg:mb-8">
+           <div className="md:flex  mb-4 lg:mb-8">
               <div className="form-control md:w-full lg:w-1/2">
                 <label className="label">
-                  <span className="label-text">Test Title</span>
+                  <span className="label-text">Task Title</span>
                 </label>
                 <label className="input-group">
                   <input
                     type="text"
                     name="name"
-                    defaultValue={selectedTask?.name} 
-                    
+                    defaultValue={selectedTask.name}
+                 
                     className="input input-bordered w-full"
                     required
                   />
                 </label>
+              </div>
+              <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
+                <label className="label">
+                  <span className="label-text">description</span>
+                </label>
+                <label className="input-group">
+                <input
+                    type="text"
+                    name="description"
+                    defaultValue={selectedTask.description}
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="md:flex mb-4 lg:mb-8">
+              <div className="form-control md:w-full lg:w-1/2">
+                <label className="label">
+                  <span className="label-text">Priority</span>
+                </label>
+                <label className="input-group">
+                <select
+                  className="select input input-bordered w-full"
+                  id="selectPriority"
+                  defaultValue={selectedTask.priority}
+                  required
+                >
+                     
+                  {priority.map((priority, index) => (
+                    <option key={index} value={priority}>
+                      { priority}
+                    </option>
+                  ))}
+                </select>
+              </label>
+                
+              </div>
+              <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
+                <label className="label">
+                  <span className="label-text">Date</span>
+                </label>
+                <label className="input-group">
+                <DatePicker
+                selected={taskDate || (selectedTask && new Date(selectedTask.taskDate))}
+                onChange={(date) => {
+                    console.log(date);
+                    setTaskDate(date);
+                }}
+                
+                name="taskDate"
+                className="input input-bordered w-full"
+                required
+                />
+                </label>
+              </div>
+            </div>
+            <div className="md:flex mb-4 lg:mb-8">
+              <div className="form-control md:w-full lg:w-full">
+                <label className="label">
+                  <span className="label-text">Status</span>
+                </label>
+                <label className="input-group">
+                <select
+                  className="select input input-bordered w-full"
+                  id="selectStatus"
+                  defaultValue={selectedTask.status}
+                  required
+                >
+                     
+                  {status.map((status, index) => (
+                    <option key={index} value={status}>
+                      { status}
+                    </option>
+                  ))}
+                </select>
+              </label>
+                
               </div>
               
             </div>
