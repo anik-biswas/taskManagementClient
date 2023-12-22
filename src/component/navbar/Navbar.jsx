@@ -44,7 +44,7 @@ const Navbar = () => {
 
                 const  links = <>
                 <li className="mx-3 text-base text-red-600 font-medium hidden md:block lg:block" ><NavLink to="/"  >Home</NavLink></li>
-                <li className="mr-3  text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/allTest">All Tests</NavLink></li>
+                <li className="mr-3  text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/allTask">All Tests</NavLink></li>
                  
                 <li className=" mr-3 text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/blog">Blogs</NavLink></li>
                 <li className=" text-base text-red-600 font-medium hidden md:block lg:block"><NavLink to="/about">About</NavLink></li>
@@ -54,7 +54,7 @@ const Navbar = () => {
             
          const  linksTab = <>
                 <li className="mr-5 " ><NavLink to="/"  >Home</NavLink></li>
-                 <li className="mr-5 "><NavLink to="/allTest">All Test</NavLink></li>
+                 <li className="mr-5 "><NavLink to="/allTask">All Test</NavLink></li>
                  <li className="mr-5 "><NavLink to="/blog">Blogs</NavLink></li>
                  <li className="mr-5 "><NavLink to="/about">About</NavLink></li>
                  <li className="mr-5 "><NavLink to="/dashboard">Dashboard</NavLink></li>
