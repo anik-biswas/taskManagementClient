@@ -19,6 +19,7 @@ import AllTask from './component/dashboard/allTask/AllTask'
 import AllTasks from './component/allTask/AllTasks'
 import Contact from './component/contact/Contact'
 import About from './component/about/About'
+import PreviousTask from './component/dashboard/previousTask/PreviousTask'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path : "/dashboard/allTask",
         element : <AllTask></AllTask>
+      },
+      {
+        path : "/dashboard/previousTask",
+        element : <PreviousTask></PreviousTask>
       }
     ]
   }

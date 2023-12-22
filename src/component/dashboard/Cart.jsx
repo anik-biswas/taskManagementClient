@@ -25,7 +25,7 @@ const Cart = () => {
             {user && userData && userData?.length > 0 ? (
                 <div className='flex justify-items-center '>
                     <div className="w-20  rounded-full">
-                                <img src={userData[0]?.image} />
+                                <img className='rounded-full' src={userData[0]?.image} />
                                 </div>
                                 <p>Hi <span className='text-2xl font-bold'>{userData[0].name} </span>, welcome to your dashboard </p>
                                

@@ -60,6 +60,7 @@ const ResponsiveTabs = ({ children }) => {
       <ResponsiveTabs>
        
           <>
+          
             <li>
             <NavLink to="/dashboard" activeClassName="active">
                 <FaHome />
@@ -83,6 +84,12 @@ const ResponsiveTabs = ({ children }) => {
               <NavLink to="/dashboard/allTask" activeClassName="active">
                 <FaIdCard />
                 All Task
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/previousTask" activeClassName="active">
+                <FaDatabase></FaDatabase>
+                Previous Task
               </NavLink>
             </li>
           </>
@@ -123,6 +130,12 @@ const ResponsiveTabs = ({ children }) => {
                 <NavLink to="/dashboard/allTask" activeClassName="active">
                   <FaIdCard />
                   All Task
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/previousTask" activeClassName="active">
+                  <FaIdCard />
+                  Previous Task
                 </NavLink>
               </li>
             </>
