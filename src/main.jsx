@@ -18,6 +18,7 @@ import ManageTask from './component/dashboard/manageTask/ManageTask'
 import AllTask from './component/dashboard/allTask/AllTask'
 import AllTasks from './component/allTask/AllTasks'
 import Contact from './component/contact/Contact'
+import About from './component/about/About'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
       
     ]
