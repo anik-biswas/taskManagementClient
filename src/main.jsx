@@ -48,15 +48,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/allTask",
-        element: <AllTasks></AllTasks>,
+        element:<PrivateRoute><AllTasks></AllTasks></PrivateRoute> ,
       },
       {
         path: "/contact",
-        element: <Contact></Contact>,
+        element:<PrivateRoute><Contact></Contact></PrivateRoute> ,
       },
       {
         path: "/about",
-        element: <About></About>,
+        element:<PrivateRoute><About></About></PrivateRoute> ,
       },
       
     ]
