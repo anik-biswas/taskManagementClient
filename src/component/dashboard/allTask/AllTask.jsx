@@ -87,53 +87,56 @@ const AllTask = () => {
     }
     
     const handleUpdateTest = async (e) => {
-        // try {
-        //     e.preventDefault();
+        try {
+            e.preventDefault();
+            
+            const form = new FormData(e.currentTarget);
+            const selectPriority = document.getElementById("selectPriority");
+            const selectStatus = document.getElementById("selectStatus");
+            const name = form.get('name');
+            const description = form.get('description');
+            const priority = selectPriority.value;
+            const status = selectStatus.value;
+            const taskDate = form.get('taskDate');
+            
+             const updateTask = { name, description, taskDate, priority, status };
+             console.log (updateTask)
+            const response = await fetch(`http://localhost:5000/dashboard/task/${selectedTask._id}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(updateTask),
+            });
     
-        //     const form = new FormData(e.currentTarget);
-        //     const name = form.get('name');
-        //     const description = form.get('description');
-        //     const priority = form.get('priority');
-        //     const taskDate = form.get('taskDate');
+            if (!response.ok) {
+                throw new Error('Test update failed');
+            }
     
-        //     const updateTask = { name, description, taskDate, priority, status };
+            const data = await response.json();
     
-        //     const response = await fetch(`https://diagnostic-server-site.vercel.app/dashboard/test/${selectedTest._id}`, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify(updateTest),
-        //     });
-    
-        //     if (!response.ok) {
-        //         throw new Error('Test update failed');
-        //     }
-    
-        //     const data = await response.json();
-    
-        //     if (data.success) {
-        //         Swal.fire({
-        //             title: 'Success!',
-        //             text: 'Test Updated Successfully',
-        //             icon: 'success',
-        //             confirmButtonText: 'Ok',
-        //         });
-        //         closeModal()
-        //         // navigate(location?.state?.from || '/dashboard/manageTest');
-        //         // window.location.reload();
-        //         const updatedTest= await fetch(`https://diagnostic-server-site.vercel.app/test`);
-        //         const updatedTestData = await updatedTest.json();
+            if (data.success) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Test Updated Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                });
+                closeModal()
+                // navigate(location?.state?.from || '/dashboard/manageTest');
+                // window.location.reload();
+                const updatedTest= await fetch(`http://localhost:5000/task`);
+                const updatedTestData = await updatedTest.json();
 
-        //     setTests(updatedTestData);
+            setTasks(updatedTestData);
 
-        //     } else {
-        //         console.log('No update');
-        //     }
-        // } catch (error) {
-        //     console.error('Error updating test:', error);
+            } else {
+                console.log('No update');
+            }
+        } catch (error) {
+            console.error('Error updating test:', error);
         //     // Handle the error (show a message to the user, etc.)
-        // }
+         }
     };
 
     const filteredTask = userTasks.filter((task) =>
